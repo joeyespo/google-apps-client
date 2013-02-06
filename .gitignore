@@ -1,6 +1,6 @@
 # Environment files
 Bin
-Obj
+obj
 *.suo
 
 # OS-specific files
