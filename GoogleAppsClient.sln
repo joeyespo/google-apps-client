@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleAppsClient", "GoogleAppsClient\GoogleAppsClient.csproj", "{7D2C4EE8-A939-4272-A715-33677BCFE964}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GoogleAppsClientSetup", "GoogleAppsClientSetup\GoogleAppsClientSetup.vdproj", "{62451CC9-D9A9-4C3B-8A22-CDA16762322D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,8 @@ Global
 		{7D2C4EE8-A939-4272-A715-33677BCFE964}.Debug|x86.Build.0 = Debug|x86
 		{7D2C4EE8-A939-4272-A715-33677BCFE964}.Release|x86.ActiveCfg = Release|x86
 		{7D2C4EE8-A939-4272-A715-33677BCFE964}.Release|x86.Build.0 = Release|x86
+		{62451CC9-D9A9-4C3B-8A22-CDA16762322D}.Debug|x86.ActiveCfg = Debug
+		{62451CC9-D9A9-4C3B-8A22-CDA16762322D}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
