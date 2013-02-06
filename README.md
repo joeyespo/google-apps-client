@@ -25,7 +25,7 @@ upcoming appointment.
 
 1. Enter your work domain to open a browser window when you click on the tray icon
 2. Enter your credentials to have the application check your mail and calendar for
-   alerts and notifications
+   alerts and notifications *(COMING SOON!)*
 
 
 Installation
