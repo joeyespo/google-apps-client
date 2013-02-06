@@ -1,7 +1,8 @@
 # Environment files
 Bin
-Obj
+obj
 *.suo
+*.csproj.user
 
 # OS-specific files
 .DS_Store
