@@ -2,6 +2,7 @@
 Bin
 obj
 *.suo
+*.csproj.user
 
 # OS-specific files
 .DS_Store
