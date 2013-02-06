@@ -126,11 +126,11 @@
             "Object" = "8:_0396AD0EDB4F450E8438862FF9DE19BC"
             "FileType" = "3:2"
             "InstallAction" = "3:2"
-            "Arguments" = "8:"
+            "Arguments" = "8:INSTALLER"
             "EntryPoint" = "8:"
             "Sequence" = "3:1"
             "Identifier" = "8:_E3C447BF_C3DE_4A8D_B80A_AA88714F2777"
-            "InstallerClass" = "11:TRUE"
+            "InstallerClass" = "11:FALSE"
             "CustomActionData" = "8:"
             }
         }
