@@ -106,6 +106,20 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_BC9247DFD92648C3B6CF36EB35AEA3BB"
+            {
+            "Name" = "8:Primary output from GoogleAppsClient (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_0396AD0EDB4F450E8438862FF9DE19BC"
+            "FileType" = "3:2"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_E3C447BF_C3DE_4A8D_B80A_AA88714F2777"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
