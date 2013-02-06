@@ -21,9 +21,11 @@ How it works
 ------------
 
 Google Apps Client runs in the background and alerts you when you have mail or an
-upcoming appointment. Enter your work domain to open a new browser window when you
-click on the tray icon. Enter your credentials to have the application check your
-mail and calendar for alerts and notifications.
+upcoming appointment.
+
+1. Enter your work domain to open a browser window when you click on the tray icon
+2. Enter your credentials to have the application check your mail and calendar for
+   alerts and notifications
 
 
 Installation
