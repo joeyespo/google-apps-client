@@ -3,24 +3,28 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Net;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace GoogleAppsClient
 {
 	public partial class MainForm : Form
 	{
 		const string ABOUT_URL = "https://github.com/joeyespo/google-apps-client";
-		const string BASE_URL = "https://mail.google.com/";
+		const string BASE_MAIL_URL = "https://mail.google.com/";
 		const string DOMAIN_SEPARATOR = "a/";
+		const string EMAIL_URL = "https://mail.google.com/mail/feed/atom";
 
 		bool exiting = false;
 		readonly Font iconFont = new Font("Arial", 7f, FontStyle.Bold);
+		int? lastMailCount = null;
 
 		public MainForm()
 		{
 			InitializeComponent();
 
-			notifyIcon.Icon = (Icon)notifyIcon.Icon.Clone();
+			SetOffline();
 		}
 
 		#region Event Handlers
@@ -42,6 +46,27 @@ namespace GoogleAppsClient
 				Close();
 
 			return base.ProcessDialogKey(keyData);
+		}
+
+		void checkTimer_Tick(object sender, EventArgs e)
+		{
+			RefreshAccount();
+		}
+
+		void usernameTextBox_TextChanged(object sender, EventArgs e)
+		{
+			if (domainPanel.Visible == usernameTextBox.Text.Contains("@"))
+				domainPanel.Visible = !usernameTextBox.Text.Contains("@");
+		}
+
+		void usernameTextBox_Leave(object sender, EventArgs e)
+		{
+			UpdateAccountSettings();
+		}
+
+		void passwordTextBox_Leave(object sender, EventArgs e)
+		{
+			UpdateAccountSettings();
 		}
 
 		void closeButton_Click(object sender, EventArgs e)
@@ -106,11 +131,49 @@ namespace GoogleAppsClient
 
 		void OpenGmail()
 		{
-			var url = BASE_URL;
+			var url = BASE_MAIL_URL;
 			if (!string.IsNullOrWhiteSpace(domainTextBox.Text))
 				url += DOMAIN_SEPARATOR + domainTextBox.Text;
 
 			Process.Start(url);
+		}
+
+		bool HasCredentials()
+		{
+			return !string.IsNullOrWhiteSpace(usernameTextBox.Text) && !string.IsNullOrWhiteSpace(passwordTextBox.Text);
+		}
+
+		void UpdateAccountSettings()
+		{
+			// TODO: spinner
+			errorProvider.Clear();
+
+			checkTimer.Enabled = HasCredentials();
+			RefreshAccount();
+		}
+
+		void RefreshAccount()
+		{
+			if (!HasCredentials())
+			{
+				SetOffline();
+				return;
+			}
+
+			int mailCount;
+			try
+			{
+				mailCount = GetMailCount();
+			}
+			catch(WebException ex)
+			{
+				errorProvider.SetError(passwordTextBox, ex.Message);
+				SetOffline();
+				return;
+			}
+
+			SetNotifyImage(RenderNewMailIcon(mailCount));
+			lastMailCount = mailCount;
 		}
 
 		void ShowSettings()
@@ -121,6 +184,14 @@ namespace GoogleAppsClient
 		#endregion
 
 		#region Helpers
+
+		string AccountUsername()
+		{
+			var email = usernameTextBox.Text.Trim();
+			return !email.Contains("@")
+				? email + "@" + domainTextBox.Text
+				: email;
+		}
 
 		static Icon ImageToIcon(Image image)
 		{
@@ -136,13 +207,7 @@ namespace GoogleAppsClient
 			return icon;
 		}
 
-		void SetNewMailIcon(int count)
-		{
-			notifyIcon.Icon.Dispose();
-			notifyIcon.Icon = RenderNewMailIcon(count);
-		}
-
-		Icon RenderNewMailIcon(int count)
+		Image RenderNewMailIcon(int count)
 		{
 			var s = count < 100
 				? count.ToString()
@@ -163,7 +228,37 @@ namespace GoogleAppsClient
 
 				g.DrawImageUnscaled(image, 0, 0, 16, 16);
 				g.DrawString(s, iconFont, Brushes.White, left - radius, 6f);
-				return ImageToIcon(bitmap);
+				return bitmap;
+			}
+		}
+
+		void SetOffline()
+		{
+			if (lastMailCount != null)
+				SetNotifyImage(iconImageList.Images[0]);
+			lastMailCount = null;
+		}
+
+		void SetNotifyImage(Image image)
+		{
+			if (notifyIcon.Icon != null)
+				notifyIcon.Icon.Dispose();
+			notifyIcon.Icon = ImageToIcon(image);
+		}
+
+		int GetMailCount()
+		{
+			var request = WebRequest.Create(EMAIL_URL);
+			request.PreAuthenticate = true;
+			request.Credentials = new NetworkCredential(AccountUsername(), passwordTextBox.Text.Trim());
+
+			using (var response = request.GetResponse())
+			using (var unreadStream = response.GetResponseStream()) {
+				var unreadMailXmlDoc = new XmlDocument();
+				unreadMailXmlDoc.Load(unreadStream);
+
+				var unreadMailEntries = unreadMailXmlDoc.GetElementsByTagName("entry");
+				return unreadMailEntries.Count;
 			}
 		}
 
