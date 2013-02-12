@@ -14,10 +14,13 @@ namespace GoogleAppsClient
 		const string DOMAIN_SEPARATOR = "a/";
 
 		bool exiting = false;
+		readonly Font iconFont = new Font("Arial", 7f, FontStyle.Bold);
 
 		public MainForm()
 		{
 			InitializeComponent();
+
+			notifyIcon.Icon = (Icon)notifyIcon.Icon.Clone();
 		}
 
 		#region Event Handlers
@@ -113,6 +116,55 @@ namespace GoogleAppsClient
 		void ShowAbout()
 		{
 			Process.Start(ABOUT_URL);
+		}
+
+		#endregion
+
+		#region Helpers
+
+		static Icon ImageToIcon(Image image)
+		{
+			var bitmap = image as Bitmap;
+			if (bitmap == null)
+			{
+				bitmap = new Bitmap(image.Width, image.Height);
+				using (var g = Graphics.FromImage(bitmap))
+					g.DrawImageUnscaled(image, 0, 0, image.Width, image.Height);
+			}
+			var icon = Icon.FromHandle(bitmap.GetHicon());
+			bitmap.Dispose();
+			return icon;
+		}
+
+		void SetNewMailIcon(int count)
+		{
+			notifyIcon.Icon.Dispose();
+			notifyIcon.Icon = RenderNewMailIcon(count);
+		}
+
+		Icon RenderNewMailIcon(int count)
+		{
+			var s = count < 100
+				? count.ToString()
+				: "+";
+
+			var bitmap = new Bitmap(16, 16);
+			using (var g = Graphics.FromImage(bitmap))
+			{
+				var left = 11f;
+				var size = g.MeasureString(s, iconFont);
+				var radius = (float)Math.Floor(size.Width / 2d);
+				var image = iconImageList.Images[2];
+				if (left + radius > 16)
+				{
+					left -= 2;
+					image = iconImageList.Images[3];
+				}
+
+				g.DrawImageUnscaled(image, 0, 0, 16, 16);
+				g.DrawString(s, iconFont, Brushes.White, left - radius, 6f);
+				return ImageToIcon(bitmap);
+			}
 		}
 
 		#endregion
