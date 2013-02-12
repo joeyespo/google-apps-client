@@ -45,6 +45,11 @@ namespace GoogleAppsClient
 			Close();
 		}
 
+		void fileOpenGmailToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			OpenGmail();
+		}
+
 		void fileExitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Exit();
