@@ -9,6 +9,7 @@ namespace GoogleAppsClient
 {
 	public partial class MainForm : Form
 	{
+		const string ABOUT_URL = "https://github.com/joeyespo/google-apps-client";
 		const string BASE_URL = "https://mail.google.com/";
 		const string DOMAIN_SEPARATOR = "a/";
 
@@ -55,6 +56,11 @@ namespace GoogleAppsClient
 			Exit();
 		}
 
+		void helpAboutGoogleAppsClientToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ShowAbout();
+		}
+
 		void notifyIcon_DoubleClick(object sender, EventArgs e)
 		{
 			OpenGmail();
@@ -68,6 +74,11 @@ namespace GoogleAppsClient
 		void settingsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			ShowSettings();
+		}
+
+		void aboutGoogleAppsClientToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ShowAbout();
 		}
 
 		void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -97,6 +108,11 @@ namespace GoogleAppsClient
 		void ShowSettings()
 		{
 			Show();
+		}
+
+		void ShowAbout()
+		{
+			Process.Start(ABOUT_URL);
 		}
 
 		#endregion
