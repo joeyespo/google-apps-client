@@ -79,7 +79,7 @@ namespace GoogleAppsClient
 			ShowSettings();
 		}
 
-		void aboutGoogleAppsClientToolStripMenuItem_Click(object sender, EventArgs e)
+		void aboutToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			ShowAbout();
 		}
@@ -99,6 +99,11 @@ namespace GoogleAppsClient
 			Close();
 		}
 
+		void ShowAbout()
+		{
+			Process.Start(ABOUT_URL);
+		}
+
 		void OpenGmail()
 		{
 			var url = BASE_URL;
@@ -111,11 +116,6 @@ namespace GoogleAppsClient
 		void ShowSettings()
 		{
 			Show();
-		}
-
-		void ShowAbout()
-		{
-			Process.Start(ABOUT_URL);
 		}
 
 		#endregion
