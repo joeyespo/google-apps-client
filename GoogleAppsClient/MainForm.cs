@@ -183,6 +183,7 @@ namespace GoogleAppsClient
 				: iconImageList.Images[1];
 
 			SetNotifyImage(image);
+			notifyIcon.Text = string.Format("{0} unread conversation{1}", mailCount, mailCount != 1 ? "s" : "");
 			lastMailCount = mailCount;
 		}
 
@@ -237,6 +238,7 @@ namespace GoogleAppsClient
 		{
 			if (lastMailCount != null || notifyIcon.Icon == null)
 				SetNotifyImage(iconImageList.Images[0]);
+			notifyIcon.Text = "Offline - Google Apps Client";
 			lastMailCount = null;
 		}
 
