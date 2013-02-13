@@ -239,7 +239,7 @@ namespace GoogleAppsClient
 
 		void SetOffline()
 		{
-			if (lastMailCount != null)
+			if (lastMailCount != null || notifyIcon.Icon == null)
 				SetNotifyImage(iconImageList.Images[0]);
 			lastMailCount = null;
 		}
