@@ -26,6 +26,7 @@ namespace GoogleAppsClient
 		int? lastMailCount = null;
 		IAsyncResult currentRequestResult = null;
 
+		bool loginError = false;
 		string username = "";
 		string encryptedPassword = "";
 		bool savePassword = true;
@@ -189,7 +190,7 @@ namespace GoogleAppsClient
 			config.Save();
 		}
 
-		bool Login()
+		void Login()
 		{
 			Show();
 
@@ -197,7 +198,7 @@ namespace GoogleAppsClient
 			{
 				loginForm.Show();
 				loginForm.Activate();
-				return false;
+				return;
 			}
 
 			try
@@ -209,7 +210,7 @@ namespace GoogleAppsClient
 					loginForm.SavePassword = savePassword;
 
 					if (loginForm.ShowDialog(this) != DialogResult.OK)
-						return false;
+						return;
 
 					username = loginForm.Username;
 					if (!loginForm.HasInitialPassword && loginForm.Password != null)
@@ -224,15 +225,14 @@ namespace GoogleAppsClient
 
 			SaveSettings();
 			UpdateAccountSettings();
-			return true;
 		}
 
 		void OpenGmail()
 		{
-			if (!HasCredentials())
+			if (!HasCredentials() || loginError)
 			{
-				if (!Login())
-					return;
+				Login();
+				return;
 			}
 
 			var url = BASE_MAIL_URL;
@@ -252,6 +252,7 @@ namespace GoogleAppsClient
 		{
 			checkTimer.Enabled = HasCredentials();
 
+			loginError = false;
 			statusLabel.ForeColor = Color.FromKnownColor(KnownColor.ControlText);
 			statusLabel.Text = "Logging in...";
 			loginButton.Visible = false;
@@ -287,6 +288,7 @@ namespace GoogleAppsClient
 			}
 			catch (WebException ex)
 			{
+				loginError = true;
 				statusLabel.Text = ex.Message;
 				statusLabel.ForeColor = Color.Red;
 				loginButton.Visible = true;
