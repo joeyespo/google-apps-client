@@ -19,6 +19,7 @@ namespace GoogleAppsClient
 		bool exiting = false;
 		readonly Font iconFont = new Font("Arial", 7f, FontStyle.Bold);
 		int? lastMailCount = null;
+		IAsyncResult requestResult = null;
 
 		public MainForm()
 		{
@@ -46,6 +47,11 @@ namespace GoogleAppsClient
 				Close();
 
 			return base.ProcessDialogKey(keyData);
+		}
+
+		void GetMailAsyncCallback(IAsyncResult ar)
+		{
+			EndRefreshAccount((WebRequest)ar.AsyncState);
 		}
 
 		void checkTimer_Tick(object sender, EventArgs e)
@@ -160,18 +166,17 @@ namespace GoogleAppsClient
 				return;
 			}
 
-			int mailCount;
-			try
-			{
-				mailCount = GetMailCount();
-			}
-			catch(WebException ex)
-			{
+			try {
+				BeginGetMailCount();
+			} catch (WebException ex) {
 				errorProvider.SetError(passwordTextBox, ex.Message);
 				SetOffline();
-				return;
 			}
+		}
 
+		void EndRefreshAccount(WebRequest request)
+		{
+			var mailCount = EndGetMailCount(request);
 			SetNotifyImage(RenderNewMailIcon(mailCount));
 			lastMailCount = mailCount;
 		}
@@ -246,13 +251,23 @@ namespace GoogleAppsClient
 			notifyIcon.Icon = ImageToIcon(image);
 		}
 
-		int GetMailCount()
+		void BeginGetMailCount()
 		{
+
+			if (requestResult != null)
+				return;
+
 			var request = WebRequest.Create(EMAIL_URL);
 			request.PreAuthenticate = true;
 			request.Credentials = new NetworkCredential(AccountUsername(), passwordTextBox.Text.Trim());
+			requestResult = request.BeginGetResponse(GetMailAsyncCallback, request);
+		}
 
-			using (var response = request.GetResponse())
+		int EndGetMailCount(WebRequest request)
+		{
+			var response = request.EndGetResponse(requestResult);
+			requestResult = null;
+
 			using (var unreadStream = response.GetResponseStream()) {
 				var unreadMailXmlDoc = new XmlDocument();
 				unreadMailXmlDoc.Load(unreadStream);
