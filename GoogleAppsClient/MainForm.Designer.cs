@@ -67,7 +67,7 @@
 			// notifyIcon
 			// 
 			this.notifyIcon.ContextMenuStrip = this.notifyMenu;
-			this.notifyIcon.Text = "Google Apps";
+			this.notifyIcon.Text = "Offline - Google Apps Client";
 			this.notifyIcon.Visible = true;
 			this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
 			// 
@@ -125,7 +125,7 @@
 			// closeButton
 			// 
 			this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.closeButton.Location = new System.Drawing.Point(516, 274);
+			this.closeButton.Location = new System.Drawing.Point(516, 272);
 			this.closeButton.Name = "closeButton";
 			this.closeButton.Size = new System.Drawing.Size(100, 40);
 			this.closeButton.TabIndex = 5;
@@ -193,7 +193,7 @@
 			this.calendarNotificationsCheckBox.AutoSize = true;
 			this.calendarNotificationsCheckBox.Checked = true;
 			this.calendarNotificationsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.calendarNotificationsCheckBox.Location = new System.Drawing.Point(12, 176);
+			this.calendarNotificationsCheckBox.Location = new System.Drawing.Point(12, 172);
 			this.calendarNotificationsCheckBox.Name = "calendarNotificationsCheckBox";
 			this.calendarNotificationsCheckBox.Size = new System.Drawing.Size(127, 17);
 			this.calendarNotificationsCheckBox.TabIndex = 4;
@@ -206,7 +206,7 @@
 			this.emailNotificationsCheckBox.AutoSize = true;
 			this.emailNotificationsCheckBox.Checked = true;
 			this.emailNotificationsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.emailNotificationsCheckBox.Location = new System.Drawing.Point(12, 152);
+			this.emailNotificationsCheckBox.Location = new System.Drawing.Point(12, 148);
 			this.emailNotificationsCheckBox.Name = "emailNotificationsCheckBox";
 			this.emailNotificationsCheckBox.Size = new System.Drawing.Size(110, 17);
 			this.emailNotificationsCheckBox.TabIndex = 3;
@@ -223,22 +223,22 @@
 			this.iconImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("iconImageList.ImageStream")));
 			this.iconImageList.TransparentColor = System.Drawing.Color.Transparent;
 			this.iconImageList.Images.SetKeyName(0, "offline.png");
-			this.iconImageList.Images.SetKeyName(1, "app.png");
-			this.iconImageList.Images.SetKeyName(2, "newmail-1.png");
-			this.iconImageList.Images.SetKeyName(3, "newmail-2.png");
+			this.iconImageList.Images.SetKeyName(1, "nomail.png");
+			this.iconImageList.Images.SetKeyName(2, "newmail-basic.png");
+			this.iconImageList.Images.SetKeyName(3, "newmail-count.png");
 			// 
 			// newEmailCountCheckBox
 			// 
 			this.newEmailCountCheckBox.AutoSize = true;
 			this.newEmailCountCheckBox.Checked = true;
 			this.newEmailCountCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.newEmailCountCheckBox.Location = new System.Drawing.Point(12, 128);
+			this.newEmailCountCheckBox.Location = new System.Drawing.Point(12, 124);
 			this.newEmailCountCheckBox.Name = "newEmailCountCheckBox";
 			this.newEmailCountCheckBox.Size = new System.Drawing.Size(109, 17);
 			this.newEmailCountCheckBox.TabIndex = 2;
 			this.newEmailCountCheckBox.Text = "\'New email\' &count";
 			this.newEmailCountCheckBox.UseVisualStyleBackColor = true;
-			this.newEmailCountCheckBox.Visible = false;
+			this.newEmailCountCheckBox.CheckedChanged += new System.EventHandler(this.newEmailCountCheckBox_CheckedChanged);
 			// 
 			// preferencesGroupBox
 			// 
