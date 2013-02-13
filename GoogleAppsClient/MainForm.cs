@@ -75,6 +75,11 @@ namespace GoogleAppsClient
 			UpdateAccountSettings();
 		}
 
+		void newEmailCountCheckBox_CheckedChanged(object sender, EventArgs e)
+		{
+			RefreshAccount();
+		}
+
 		void closeButton_Click(object sender, EventArgs e)
 		{
 			Close();
@@ -179,7 +184,9 @@ namespace GoogleAppsClient
 			var mailCount = EndGetMailCount(request);
 
 			var image = mailCount > 0
-				? RenderNewMailIcon(mailCount)
+				? (newEmailCountCheckBox.Checked
+					? RenderNewMailIcon(mailCount)
+					: iconImageList.Images[2])
 				: iconImageList.Images[1];
 
 			SetNotifyImage(image);
