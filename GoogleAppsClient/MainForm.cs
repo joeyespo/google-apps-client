@@ -308,7 +308,7 @@ namespace GoogleAppsClient
 				: iconImageList.Images[1];
 
 			SetNotifyImage(image);
-			notifyIcon.Text = string.Format("{0} unread conversation{1}", mailCount, mailCount != 1 ? "s" : "");
+			notifyIcon.Text = string.Format("{0} unread conversation{1}", mailCount != 0 ? mailCount.ToString() : "No", mailCount != 1 ? "s" : "");
 			lastMailCount = mailCount;
 		}
 
