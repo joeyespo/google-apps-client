@@ -45,23 +45,18 @@
 			this.helpAboutGoogleAppsClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.calendarNotificationsCheckBox = new System.Windows.Forms.CheckBox();
 			this.emailNotificationsCheckBox = new System.Windows.Forms.CheckBox();
-			this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+			this.loginButton = new System.Windows.Forms.Button();
 			this.iconImageList = new System.Windows.Forms.ImageList(this.components);
 			this.newEmailCountCheckBox = new System.Windows.Forms.CheckBox();
-			this.preferencesGroupBox = new System.Windows.Forms.GroupBox();
-			this.domainPanel = new System.Windows.Forms.Panel();
-			this.domainTextBox = new System.Windows.Forms.TextBox();
-			this.atLabel = new System.Windows.Forms.Label();
-			this.usernameTextBox = new System.Windows.Forms.TextBox();
-			this.passwordLabel = new System.Windows.Forms.Label();
-			this.usernameLabel = new System.Windows.Forms.Label();
-			this.passwordTextBox = new System.Windows.Forms.TextBox();
 			this.checkTimer = new System.Windows.Forms.Timer(this.components);
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.loginPanel = new System.Windows.Forms.Panel();
+			this.statusLabel = new System.Windows.Forms.Label();
+			this.logoutButton = new System.Windows.Forms.Button();
 			this.notifyMenu.SuspendLayout();
 			this.mainMenu.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-			this.preferencesGroupBox.SuspendLayout();
-			this.domainPanel.SuspendLayout();
+			this.groupBox1.SuspendLayout();
+			this.loginPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// notifyIcon
@@ -125,7 +120,7 @@
 			// closeButton
 			// 
 			this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.closeButton.Location = new System.Drawing.Point(516, 272);
+			this.closeButton.Location = new System.Drawing.Point(384, 272);
 			this.closeButton.Name = "closeButton";
 			this.closeButton.Size = new System.Drawing.Size(100, 40);
 			this.closeButton.TabIndex = 5;
@@ -140,7 +135,7 @@
             this.helpToolStripMenuItem});
 			this.mainMenu.Location = new System.Drawing.Point(0, 0);
 			this.mainMenu.Name = "mainMenu";
-			this.mainMenu.Size = new System.Drawing.Size(624, 24);
+			this.mainMenu.Size = new System.Drawing.Size(492, 24);
 			this.mainMenu.TabIndex = 0;
 			this.mainMenu.Text = "menuStrip1";
 			// 
@@ -193,7 +188,7 @@
 			this.calendarNotificationsCheckBox.AutoSize = true;
 			this.calendarNotificationsCheckBox.Checked = true;
 			this.calendarNotificationsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.calendarNotificationsCheckBox.Location = new System.Drawing.Point(12, 172);
+			this.calendarNotificationsCheckBox.Location = new System.Drawing.Point(12, 72);
 			this.calendarNotificationsCheckBox.Name = "calendarNotificationsCheckBox";
 			this.calendarNotificationsCheckBox.Size = new System.Drawing.Size(127, 17);
 			this.calendarNotificationsCheckBox.TabIndex = 4;
@@ -206,7 +201,7 @@
 			this.emailNotificationsCheckBox.AutoSize = true;
 			this.emailNotificationsCheckBox.Checked = true;
 			this.emailNotificationsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.emailNotificationsCheckBox.Location = new System.Drawing.Point(12, 148);
+			this.emailNotificationsCheckBox.Location = new System.Drawing.Point(12, 48);
 			this.emailNotificationsCheckBox.Name = "emailNotificationsCheckBox";
 			this.emailNotificationsCheckBox.Size = new System.Drawing.Size(110, 17);
 			this.emailNotificationsCheckBox.TabIndex = 3;
@@ -214,9 +209,16 @@
 			this.emailNotificationsCheckBox.UseVisualStyleBackColor = true;
 			this.emailNotificationsCheckBox.Visible = false;
 			// 
-			// errorProvider
+			// loginButton
 			// 
-			this.errorProvider.ContainerControl = this;
+			this.loginButton.Dock = System.Windows.Forms.DockStyle.Right;
+			this.loginButton.Location = new System.Drawing.Point(368, 0);
+			this.loginButton.Name = "loginButton";
+			this.loginButton.Size = new System.Drawing.Size(100, 40);
+			this.loginButton.TabIndex = 8;
+			this.loginButton.Text = "&Login";
+			this.loginButton.UseVisualStyleBackColor = true;
+			this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
 			// 
 			// iconImageList
 			// 
@@ -232,7 +234,7 @@
 			this.newEmailCountCheckBox.AutoSize = true;
 			this.newEmailCountCheckBox.Checked = true;
 			this.newEmailCountCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.newEmailCountCheckBox.Location = new System.Drawing.Point(12, 124);
+			this.newEmailCountCheckBox.Location = new System.Drawing.Point(12, 24);
 			this.newEmailCountCheckBox.Name = "newEmailCountCheckBox";
 			this.newEmailCountCheckBox.Size = new System.Drawing.Size(109, 17);
 			this.newEmailCountCheckBox.TabIndex = 2;
@@ -240,117 +242,79 @@
 			this.newEmailCountCheckBox.UseVisualStyleBackColor = true;
 			this.newEmailCountCheckBox.CheckedChanged += new System.EventHandler(this.newEmailCountCheckBox_CheckedChanged);
 			// 
-			// preferencesGroupBox
-			// 
-			this.preferencesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.preferencesGroupBox.Controls.Add(this.domainPanel);
-			this.preferencesGroupBox.Controls.Add(this.usernameTextBox);
-			this.preferencesGroupBox.Controls.Add(this.passwordLabel);
-			this.preferencesGroupBox.Controls.Add(this.usernameLabel);
-			this.preferencesGroupBox.Controls.Add(this.passwordTextBox);
-			this.preferencesGroupBox.Location = new System.Drawing.Point(8, 32);
-			this.preferencesGroupBox.Name = "preferencesGroupBox";
-			this.preferencesGroupBox.Size = new System.Drawing.Size(608, 84);
-			this.preferencesGroupBox.TabIndex = 1;
-			this.preferencesGroupBox.TabStop = false;
-			this.preferencesGroupBox.Text = "&Account Settings";
-			// 
-			// domainPanel
-			// 
-			this.domainPanel.Controls.Add(this.domainTextBox);
-			this.domainPanel.Controls.Add(this.atLabel);
-			this.domainPanel.Location = new System.Drawing.Point(220, 24);
-			this.domainPanel.Name = "domainPanel";
-			this.domainPanel.Size = new System.Drawing.Size(124, 20);
-			this.domainPanel.TabIndex = 4;
-			// 
-			// domainTextBox
-			// 
-			this.domainTextBox.Location = new System.Drawing.Point(16, 0);
-			this.domainTextBox.Name = "domainTextBox";
-			this.domainTextBox.Size = new System.Drawing.Size(108, 20);
-			this.domainTextBox.TabIndex = 1;
-			this.domainTextBox.Text = "snapretail.com";
-			this.domainTextBox.TextChanged += new System.EventHandler(this.usernameTextBox_TextChanged);
-			this.domainTextBox.Leave += new System.EventHandler(this.usernameTextBox_Leave);
-			// 
-			// atLabel
-			// 
-			this.atLabel.AutoSize = true;
-			this.atLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.atLabel.Location = new System.Drawing.Point(0, 4);
-			this.atLabel.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-			this.atLabel.Name = "atLabel";
-			this.atLabel.Size = new System.Drawing.Size(18, 13);
-			this.atLabel.TabIndex = 0;
-			this.atLabel.Text = "@";
-			// 
-			// usernameTextBox
-			// 
-			this.usernameTextBox.Location = new System.Drawing.Point(84, 24);
-			this.usernameTextBox.Name = "usernameTextBox";
-			this.usernameTextBox.Size = new System.Drawing.Size(132, 20);
-			this.usernameTextBox.TabIndex = 1;
-			this.usernameTextBox.TextChanged += new System.EventHandler(this.usernameTextBox_TextChanged);
-			this.usernameTextBox.Leave += new System.EventHandler(this.usernameTextBox_Leave);
-			// 
-			// passwordLabel
-			// 
-			this.passwordLabel.AutoSize = true;
-			this.passwordLabel.Location = new System.Drawing.Point(16, 56);
-			this.passwordLabel.Name = "passwordLabel";
-			this.passwordLabel.Size = new System.Drawing.Size(56, 13);
-			this.passwordLabel.TabIndex = 2;
-			this.passwordLabel.Text = "&Password:";
-			// 
-			// usernameLabel
-			// 
-			this.usernameLabel.AutoSize = true;
-			this.usernameLabel.Location = new System.Drawing.Point(16, 28);
-			this.usernameLabel.Name = "usernameLabel";
-			this.usernameLabel.Size = new System.Drawing.Size(58, 13);
-			this.usernameLabel.TabIndex = 0;
-			this.usernameLabel.Text = "&Username:";
-			// 
-			// passwordTextBox
-			// 
-			this.passwordTextBox.Location = new System.Drawing.Point(84, 52);
-			this.passwordTextBox.Name = "passwordTextBox";
-			this.passwordTextBox.PasswordChar = '*';
-			this.passwordTextBox.Size = new System.Drawing.Size(132, 20);
-			this.passwordTextBox.TabIndex = 3;
-			this.passwordTextBox.Leave += new System.EventHandler(this.passwordTextBox_Leave);
-			// 
 			// checkTimer
 			// 
 			this.checkTimer.Interval = 10000;
 			this.checkTimer.Tick += new System.EventHandler(this.checkTimer_Tick);
 			// 
+			// groupBox1
+			// 
+			this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox1.Controls.Add(this.newEmailCountCheckBox);
+			this.groupBox1.Controls.Add(this.emailNotificationsCheckBox);
+			this.groupBox1.Controls.Add(this.calendarNotificationsCheckBox);
+			this.groupBox1.Location = new System.Drawing.Point(16, 84);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(468, 108);
+			this.groupBox1.TabIndex = 9;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "&Options";
+			// 
+			// loginPanel
+			// 
+			this.loginPanel.Controls.Add(this.statusLabel);
+			this.loginPanel.Controls.Add(this.logoutButton);
+			this.loginPanel.Controls.Add(this.loginButton);
+			this.loginPanel.Location = new System.Drawing.Point(16, 32);
+			this.loginPanel.Name = "loginPanel";
+			this.loginPanel.Size = new System.Drawing.Size(468, 40);
+			this.loginPanel.TabIndex = 12;
+			// 
+			// statusLabel
+			// 
+			this.statusLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.statusLabel.Location = new System.Drawing.Point(0, 0);
+			this.statusLabel.Name = "statusLabel";
+			this.statusLabel.Size = new System.Drawing.Size(268, 40);
+			this.statusLabel.TabIndex = 15;
+			this.statusLabel.Text = "Status";
+			this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// logoutButton
+			// 
+			this.logoutButton.Dock = System.Windows.Forms.DockStyle.Right;
+			this.logoutButton.Location = new System.Drawing.Point(268, 0);
+			this.logoutButton.Name = "logoutButton";
+			this.logoutButton.Size = new System.Drawing.Size(100, 40);
+			this.logoutButton.TabIndex = 16;
+			this.logoutButton.Text = "&Logout";
+			this.logoutButton.UseVisualStyleBackColor = true;
+			this.logoutButton.Visible = false;
+			this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(624, 320);
-			this.Controls.Add(this.preferencesGroupBox);
+			this.ClientSize = new System.Drawing.Size(492, 320);
+			this.Controls.Add(this.loginPanel);
+			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.closeButton);
-			this.Controls.Add(this.calendarNotificationsCheckBox);
 			this.Controls.Add(this.mainMenu);
-			this.Controls.Add(this.newEmailCountCheckBox);
-			this.Controls.Add(this.emailNotificationsCheckBox);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.mainMenu;
+			this.MinimumSize = new System.Drawing.Size(320, 242);
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Google Apps Client";
+			this.Shown += new System.EventHandler(this.MainForm_Shown);
 			this.notifyMenu.ResumeLayout(false);
 			this.mainMenu.ResumeLayout(false);
 			this.mainMenu.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-			this.preferencesGroupBox.ResumeLayout(false);
-			this.preferencesGroupBox.PerformLayout();
-			this.domainPanel.ResumeLayout(false);
-			this.domainPanel.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
+			this.loginPanel.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -370,24 +334,20 @@
 		private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
 		private System.Windows.Forms.CheckBox calendarNotificationsCheckBox;
 		private System.Windows.Forms.CheckBox emailNotificationsCheckBox;
-		private System.Windows.Forms.ErrorProvider errorProvider;
 		private System.Windows.Forms.ToolStripMenuItem fileOpenGmailToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
 		private System.Windows.Forms.ImageList iconImageList;
 		private System.Windows.Forms.CheckBox newEmailCountCheckBox;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem helpAboutGoogleAppsClientToolStripMenuItem;
-		private System.Windows.Forms.GroupBox preferencesGroupBox;
-		private System.Windows.Forms.TextBox usernameTextBox;
-		private System.Windows.Forms.Label passwordLabel;
-		private System.Windows.Forms.Label usernameLabel;
-		private System.Windows.Forms.TextBox passwordTextBox;
-		private System.Windows.Forms.Label atLabel;
-		private System.Windows.Forms.TextBox domainTextBox;
-		private System.Windows.Forms.Panel domainPanel;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
 		private System.Windows.Forms.Timer checkTimer;
+		private System.Windows.Forms.Button loginButton;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.Panel loginPanel;
+		private System.Windows.Forms.Label statusLabel;
+		private System.Windows.Forms.Button logoutButton;
 	}
 }
 
