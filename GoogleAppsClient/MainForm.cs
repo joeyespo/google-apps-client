@@ -17,7 +17,7 @@ namespace GoogleAppsClient
 		const string EMAIL_URL = "https://mail.google.com/mail/feed/atom";
 
 		bool exiting = false;
-		readonly Font iconFont = new Font("Arial", 7f, FontStyle.Bold);
+		readonly Font iconFont = new Font("Arial", 8f, FontStyle.Bold);
 		int? lastMailCount = null;
 		IAsyncResult requestResult = null;
 
@@ -177,7 +177,12 @@ namespace GoogleAppsClient
 		void EndRefreshAccount(WebRequest request)
 		{
 			var mailCount = EndGetMailCount(request);
-			SetNotifyImage(RenderNewMailIcon(mailCount));
+
+			var image = mailCount > 0
+				? RenderNewMailIcon(mailCount)
+				: iconImageList.Images[1];
+
+			SetNotifyImage(image);
 			lastMailCount = mailCount;
 		}
 
@@ -221,18 +226,9 @@ namespace GoogleAppsClient
 			var bitmap = new Bitmap(16, 16);
 			using (var g = Graphics.FromImage(bitmap))
 			{
-				var left = 11f;
-				var size = g.MeasureString(s, iconFont);
-				var radius = (float)Math.Floor(size.Width / 2d);
-				var image = iconImageList.Images[2];
-				if (left + radius > 16)
-				{
-					left -= 2;
-					image = iconImageList.Images[3];
-				}
-
-				g.DrawImageUnscaled(image, 0, 0, 16, 16);
-				g.DrawString(s, iconFont, Brushes.White, left - radius, 6f);
+				var radius = (float)Math.Floor(g.MeasureString(s, iconFont).Width / 2d);
+				g.DrawImageUnscaled(iconImageList.Images[3], 0, 0, 16, 16);
+				g.DrawString(s, iconFont, Brushes.White, 9f - radius, 3f);
 				return bitmap;
 			}
 		}
