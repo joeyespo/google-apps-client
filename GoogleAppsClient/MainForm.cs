@@ -34,6 +34,8 @@ namespace GoogleAppsClient
 		public MainForm()
 		{
 			InitializeComponent();
+
+			SetOffline();
 		}
 
 		#region Event Handlers
