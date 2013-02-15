@@ -1,6 +1,12 @@
 Google Apps Client Changelog
 ============================
 
+Version 0.3 (2013-02-15)
+------------------------
+
+- Added the email count to the notify icon
+- Added the login form to securely log in
+
 
 Version 0.2 (2013-02-06)
 ------------------------
