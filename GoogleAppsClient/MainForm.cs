@@ -285,6 +285,8 @@ namespace GoogleAppsClient
 			try
 			{
 				mailCount = EndGetMailCount(request);
+				if (mailCount == -1)
+					return;
 			}
 			catch (WebException ex)
 			{
@@ -297,6 +299,7 @@ namespace GoogleAppsClient
 				return;
 			}
 
+			statusLabel.ForeColor = Color.FromKnownColor(KnownColor.ControlText);
 			statusLabel.Text = "Logged in as " + username;
 			loginButton.Visible = false;
 			logoutButton.Visible = true;
@@ -379,6 +382,9 @@ namespace GoogleAppsClient
 
 		int EndGetMailCount(WebRequest request)
 		{
+			if (currentRequestResult == null)
+				return -1;
+
 			var requestResult = currentRequestResult;
 			currentRequestResult = null;
 
