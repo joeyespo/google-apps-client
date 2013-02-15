@@ -95,6 +95,11 @@ namespace GoogleAppsClient
 			Login();
 		}
 
+		void logoutButton_Click(object sender, EventArgs e)
+		{
+			Logout();
+		}
+
 		void fileOpenGmailToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			OpenGmail();
@@ -227,6 +232,13 @@ namespace GoogleAppsClient
 
 			SaveSettings();
 			UpdateAccountSettings();
+		}
+
+		void Logout()
+		{
+			// TODO: actually log out current user
+
+			Login();
 		}
 
 		void OpenGmail()
@@ -401,10 +413,5 @@ namespace GoogleAppsClient
 		}
 
 		#endregion
-
-		private void logoutButton_Click(object sender, EventArgs e)
-		{
-
-		}
 	}
 }
