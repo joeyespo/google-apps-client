@@ -323,9 +323,12 @@ namespace GoogleAppsClient
 					? RenderNewMailIcon(mailCount)
 					: iconImageList.Images[2])
 				: iconImageList.Images[1];
-
 			SetNotifyImage(image);
 			notifyIcon.Text = string.Format("{0} unread conversation{1}", mailCount != 0 ? mailCount.ToString() : "No", mailCount != 1 ? "s" : "");
+
+			if (mailCount > 0 && (mailCount > lastMailCount || lastMailCount == null))
+				Win32.PlaySound("MailBeep", Win32.SND_ALIAS | Win32.SND_ASYNC);
+
 			lastMailCount = mailCount;
 		}
 
